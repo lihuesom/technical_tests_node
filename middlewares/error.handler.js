@@ -8,6 +8,7 @@
  * @param {function} next - Función para pasar al siguiente middleware.
  */
 function logErrors(err, req, res, next) {
+  console.log('logErrors');
   console.error(err);
   next(err);
 }
@@ -22,6 +23,7 @@ function logErrors(err, req, res, next) {
  * @param {function} next - Función para pasar al siguiente middleware.
  */
 function errorHandler(err, req, res, next) {
+  console.log('errorHandler');
   res.status(500).json({
     message: err.message,
     stack: err.stack, // mostrar información del error
