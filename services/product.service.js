@@ -9,7 +9,9 @@ class ProductService {
     this.generate();
   }
 
-  // Genera productos ficticios utilizando la librería 'faker'
+  /**
+   * Genera productos ficticios utilizando la librería 'faker' y los agrega al arreglo de productos.
+   */
   generate() {
     for (let index = 0; index < 100; index++) {
       this.products.push({
@@ -18,11 +20,16 @@ class ProductService {
         description: faker.commerce.productDescription(),
         price: parseInt(faker.commerce.price(), 10),
         image: faker.image.urlPicsumPhotos(),
+        created_at: faker.date.anytime(),
       });
     }
   }
 
-  // Crea un nuevo producto
+  /**
+   * Crea un nuevo producto y lo agrega al arreglo de productos.
+   * @param {object} data - Datos del producto a crear.
+   * @returns {object} - El producto creado.
+   */
   async create(data) {
     const newProduct = {
       id: faker.number.int({ max: 100 }),
@@ -32,17 +39,30 @@ class ProductService {
     return newProduct;
   }
 
-  // Devuelve todos los productos
+  /**
+   * Devuelve todos los productos almacenados en el arreglo de productos.
+   * @returns {array} - Arreglo de productos.
+   */
   async find() {
     return this.products;
   }
 
-  // Busca un producto por su ID
+  /**
+   * Busca un producto por su ID en el arreglo de productos.
+   * @param {number} id - ID del producto a buscar.
+   * @returns {object|null} - El producto encontrado o null si no se encuentra.
+   */
   async findOne(id) {
     return this.products.find(item => item.id == id);
   }
 
-  // Actualiza un producto existente
+  /**
+   * Actualiza un producto existente en el arreglo de productos.
+   * @param {number} id - ID del producto a actualizar.
+   * @param {object} changes - Cambios a aplicar al producto.
+   * @returns {object} - El producto actualizado.
+   * @throws {Error} - Si el producto no se encuentra.
+   */
   async update(id, changes) {
     const index = this.products.findIndex(item => item.id == id);
     if (index === -1) {
@@ -58,7 +78,12 @@ class ProductService {
     return this.products[index];
   }
 
-  // Elimina un producto por su ID
+  /**
+   * Elimina un producto por su ID del arreglo de productos.
+   * @param {number} id - ID del producto a eliminar.
+   * @returns {object} - Objeto que indica el ID del producto eliminado.
+   * @throws {Error} - Si el producto no se encuentra.
+   */
   async delete(id) {
     const index = this.products.findIndex(item => item.id == id);
     if (index === -1) {
